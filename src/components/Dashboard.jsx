@@ -4,7 +4,7 @@ const Dashboard = () => {
   const chartData1 = {
     datasets: [
       {
-        label: 'Time vs. home price',
+        label: 'Number of properties sold per day',
         data: [
           { x: '2023-05-01', y: 20 },
           { x: '2023-05-02', y: 10 },

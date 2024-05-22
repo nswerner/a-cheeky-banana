@@ -10,11 +10,11 @@ import { Container } from 'react-bootstrap';
 Chart.register(...registerables);
 
 const ScatterChart = ({ data, options }) => {
-    return (
-        <Container>
-            <Scatter data={data} options={options} />
-        </Container>
-    );
+  return (
+    <Container>
+      <Scatter data={data} options={options} />
+    </Container>
+  );
 };
 
 export default ScatterChart;

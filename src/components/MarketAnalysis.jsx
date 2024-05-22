@@ -172,8 +172,8 @@ const MarketAnalysis = () => {
                             }}
                             key={columnIndex}
                           >
-                            {columnKey === 'Listing price'
-                              ? Number(row['Listing price'])
+                            {columnKey === 'Listing Price'
+                              ? Number(row['Listing Price'])
                                   .toLocaleString('en-US', {
                                     style: 'currency',
                                     currency: 'USD',
@@ -191,7 +191,7 @@ const MarketAnalysis = () => {
                       }}
                       key={'pricePerSqft'}
                     >
-                      {(row['Listing price'] / row['sqft']).toLocaleString(
+                      {(row['Listing Price'] / row['sqft']).toLocaleString(
                         'en-US',
                         {
                           style: 'currency',
