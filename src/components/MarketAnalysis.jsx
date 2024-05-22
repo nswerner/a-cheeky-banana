@@ -20,7 +20,9 @@ const MarketAnalysis = () => {
           (header) => header !== 'latitude' && header !== 'longitude'
         )
       );
-      const addresses = [...new Set(parsedData.map((a) => a.street))];
+      const addresses = [
+        ...new Set(parsedData.map((a) => a['Street Address'])),
+      ];
       setAddressList(addresses);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -72,7 +74,9 @@ const MarketAnalysis = () => {
   }
 
   const addressSelect = (address) => {
-    const filteredData = listings.find((item) => item.street === address);
+    const filteredData = listings.find(
+      (item) => item['Street Address'] === address
+    );
     const nearby = findNearbyAreas(
       filteredData.latitude,
       filteredData.longitude,
