@@ -1,0 +1,15 @@
+/* current-listings.css */
+
+.card {
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    font-weight: bold;
+}
+
+.card-text {
+    color: #6c757d;
+}
