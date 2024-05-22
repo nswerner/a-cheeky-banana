@@ -12,7 +12,6 @@ const MarketAnalysis = () => {
     try {
       const response = await fetch('/Listing.csv');
       const csvData = await response.text();
-      // Convert CSV data to an array of objects
       const parsedData = parseCSV(csvData);
       setListings(parsedData);
       setAllListings(parsedData);
@@ -23,7 +22,6 @@ const MarketAnalysis = () => {
       );
       const addresses = [...new Set(parsedData.map((a) => a.street))];
       setAddressList(addresses);
-      console.log('nearby', addresses, nearby);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -42,10 +40,9 @@ const MarketAnalysis = () => {
     return parsedData;
   };
 
-  // Function to calculate distance between two points using Haversine formula
   function getDistance(lat1, lon1, lat2, lon2) {
-    const R = 6371; // Radius of the earth in km
-    const dLat = ((lat2 - lat1) * Math.PI) / 180; // deg2rad below
+    const R = 6371;
+    const dLat = ((lat2 - lat1) * Math.PI) / 180;
     const dLon = ((lon2 - lon1) * Math.PI) / 180;
     const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
@@ -54,11 +51,10 @@ const MarketAnalysis = () => {
         Math.sin(dLon / 2) *
         Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    const d = R * c; // Distance in km
+    const d = R * c;
     return d;
   }
 
-  // Function to find nearby areas based on latitude and longitude
   function findNearbyAreas(targetLat, targetLon, dataArray, radius) {
     const nearbyAreas = [];
     for (const obj of dataArray) {
@@ -119,21 +115,29 @@ const MarketAnalysis = () => {
             </Row>
           </Row>
 
-          <div style={{ overflowX: 'auto' }}>
-            <table style={{ whiteSpace: 'nowrap' }}>
+          <div style={{ overflowX: 'auto', backgroundColor: '#f8f9fa' }}>
+            <table style={{ whiteSpace: 'nowrap', borderCollapse: 'collapse' }}>
               <thead>
                 <tr style={{ textAlign: 'left', padding: '10px' }}>
                   {headers.length > 0 &&
                     headers.map((columnHeader, index) => (
                       <th
-                        style={{ marginRight: '20px', padding: '5px' }}
+                        style={{
+                          marginRight: '20px',
+                          padding: '5px',
+                          border: '1px solid #dee2e6',
+                        }}
                         key={index}
                       >
                         {columnHeader}
                       </th>
                     ))}
                   <th
-                    style={{ marginRight: '20px', padding: '5px' }}
+                    style={{
+                      marginRight: '20px',
+                      padding: '5px',
+                      border: '1px solid #dee2e6',
+                    }}
                     key={'pricePerSqft'}
                   >
                     {'Price per sqft'}
@@ -142,28 +146,54 @@ const MarketAnalysis = () => {
               </thead>
               <tbody>
                 {listings.map((row, rowIndex) => (
-                  <tr key={rowIndex} style={{ padding: '10px' }}>
+                  <tr
+                    key={rowIndex}
+                    style={{
+                      padding: '10px',
+                      backgroundColor:
+                        rowIndex % 2 === 0 ? '#f8f9fa' : '#e9ecef',
+                    }}
+                  >
                     {Object.keys(row)
                       .filter(
                         (key) => key !== 'latitude' && key !== 'longitude'
                       )
                       .map((columnKey, columnIndex) => {
-                        debugger;
                         return (
                           <td
-                            style={{ marginRight: '20px', padding: '5px' }}
+                            style={{
+                              marginRight: '20px',
+                              padding: '5px',
+                              border: '1px solid #dee2e6',
+                            }}
                             key={columnIndex}
                           >
-                            {row[columnKey]}
+                            {columnKey === 'Listing price'
+                              ? Number(row['Listing price'])
+                                  .toLocaleString('en-US', {
+                                    style: 'currency',
+                                    currency: 'USD',
+                                  })
+                                  .slice(0, -3)
+                              : row[columnKey]}
                           </td>
                         );
                       })}
                     <td
-                      style={{ marginRight: '20px', padding: '5px' }}
+                      style={{
+                        marginRight: '20px',
+                        padding: '5px',
+                        border: '1px solid #dee2e6',
+                      }}
                       key={'pricePerSqft'}
                     >
-                      {Math.round((row['Listing price'] / row['sqft']) * 100) /
-                        100}
+                      {(row['Listing price'] / row['sqft']).toLocaleString(
+                        'en-US',
+                        {
+                          style: 'currency',
+                          currency: 'USD',
+                        }
+                      )}
                     </td>
                   </tr>
                 ))}
