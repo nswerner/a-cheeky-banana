@@ -18,7 +18,7 @@ const AppHeader = ({ user, setUser }) => {
         padding: '16px',
       }}
     >
-      <Container minWidth="100%">
+      <Container>
         <Stack style={{ width: '100%' }} direction="horizontal" gap={5}>
           <LinkContainer to="/">
             <Navbar.Brand>

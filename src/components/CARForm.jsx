@@ -169,8 +169,11 @@ const CARForm = () => {
           </Form>
         </Col>
         <Col>
-          <Container className="sticky-top">
-            <div className="form-container mt-4 p-3 border scrollable">
+          <Container className="pt-2 mt-2 sticky-top" style={{ top: 50 }}>
+            <div
+              className="form-container mt-4 p-3 border scrollable"
+              style={{ backgroundColor: 'white' }}
+            >
               <h5>{selectedField}</h5>
               <p>{explanations[selectedField]}</p>
             </div>
