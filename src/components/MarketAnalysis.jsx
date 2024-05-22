@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import AddressDropdown from './AddressDropdown';
 
 const MarketAnalysis = () => {
@@ -91,7 +91,7 @@ const MarketAnalysis = () => {
   }, []);
 
   return (
-    <Container className="mt-5" style={{ overflowX: 'auto' }}>
+    <Container className="mt-5">
       <Row className="py-4">
         <h2 style={{ textAlign: 'center', color: 'black' }}>
           Competitive Market Analysis
@@ -99,7 +99,7 @@ const MarketAnalysis = () => {
       </Row>
 
       {listings.length > 0 && (
-        <>
+        <React.Fragment>
           <Row className="mb-2">
             <Col md={4}>
               <AddressDropdown
@@ -119,38 +119,58 @@ const MarketAnalysis = () => {
             </Row>
           </Row>
 
-          <table>
-            <thead>
-              <tr style={{ textAlign: 'left', padding: '10px' }}>
-                {headers.length > 0 &&
-                  headers.map((columnHeader, index) => (
-                    <th
-                      style={{ marginRight: '20px', padding: '5px' }}
-                      key={index}
-                    >
-                      {columnHeader}
-                    </th>
-                  ))}
-              </tr>
-            </thead>
-            <tbody>
-              {listings.map((row, rowIndex) => (
-                <tr key={rowIndex} style={{ padding: '10px' }}>
-                  {Object.keys(row)
-                    .filter((key) => key !== 'latitude' && key !== 'longitude')
-                    .map((columnKey, columnIndex) => (
-                      <td
+          <div style={{ overflowX: 'auto' }}>
+            <table style={{ whiteSpace: 'nowrap' }}>
+              <thead>
+                <tr style={{ textAlign: 'left', padding: '10px' }}>
+                  {headers.length > 0 &&
+                    headers.map((columnHeader, index) => (
+                      <th
                         style={{ marginRight: '20px', padding: '5px' }}
-                        key={columnIndex}
+                        key={index}
                       >
-                        {row[columnKey]}
-                      </td>
+                        {columnHeader}
+                      </th>
                     ))}
+                  <th
+                    style={{ marginRight: '20px', padding: '5px' }}
+                    key={'pricePerSqft'}
+                  >
+                    {'Price per sqft'}
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </>
+              </thead>
+              <tbody>
+                {listings.map((row, rowIndex) => (
+                  <tr key={rowIndex} style={{ padding: '10px' }}>
+                    {Object.keys(row)
+                      .filter(
+                        (key) => key !== 'latitude' && key !== 'longitude'
+                      )
+                      .map((columnKey, columnIndex) => {
+                        debugger;
+                        return (
+                          <td
+                            style={{ marginRight: '20px', padding: '5px' }}
+                            key={columnIndex}
+                          >
+                            {row[columnKey]}
+                          </td>
+                        );
+                      })}
+                    <td
+                      style={{ marginRight: '20px', padding: '5px' }}
+                      key={'pricePerSqft'}
+                    >
+                      {Math.round((row['Listing price'] / row['sqft']) * 100) /
+                        100}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </React.Fragment>
       )}
     </Container>
   );
