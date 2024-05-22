@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, Stack } from 'react-bootstrap';
 import '../css/CARForm.css';
 import jsPDF from 'jspdf';
 
@@ -51,285 +51,164 @@ const CARForm = () => {
   };
 
   return (
-    <Container style={{ backgroundColor: '#F6F6F0' }}>
+    <Container style={{ paddingTop: 36, backgroundColor: '#F6F6F0' }}>
       <Row className="mt-5 py-4">
         <h2 style={{ textAlign: 'center', color: 'black' }}>
           Let's put together your home offer!
         </h2>
       </Row>
+
       <Row>
-        <Form className="form-container" onSubmit={handleSubmit}>
-          <Row className="mt-1">
-            <Col className="left-panel" xs={12} md={8}>
-              <Form.Group controlId="formOfferDate" className="mb-5">
-                <Form.Label>When is your offer date?</Form.Label>
-                <Form.Control
-                  type="date"
-                  onFocus={() => handleFocus('Offer Date')}
-                  onChange={(e) => handleChange('Offer Date', e.target.value)}
-                />
-              </Form.Group>
-            </Col>
-            <Col className="right-panel" xs={12} md={4}>
-              {selectedField === 'Offer Date' && (
-                <div className="form-container p-3 border scrollable">
-                  <h5>Offer Date</h5>
-                  <p>{explanations[selectedField]}</p>
-                </div>
-              )}
-              {/* {!selectedField && <p>Select a field to see the instructions.</p>} */}
-            </Col>
-          </Row>
-          <Row className="mt-1">
-            <Col className="left-panel" xs={12} md={8}>
-              <Form.Group controlId="formCloseDate" className="mb-5">
-                <Form.Label>
-                  When do you want to close on the property?
-                </Form.Label>
-                <Form.Control
-                  type="date"
-                  onFocus={() => handleFocus('Close Date')}
-                  onChange={(e) => handleChange('Close Date', e.target.value)}
-                />
-              </Form.Group>
-            </Col>
-            <Col className="right-panel mt-1" xs={12} md={4}>
-              {selectedField === 'Close Date' && (
-                <div className="form-container p-3 border scrollable">
-                  <h5>Close Date</h5>
-                  <p>{explanations[selectedField]}</p>
-                </div>
-              )}
-            </Col>
-          </Row>
-
-          <Row className="mt-1">
-            <Col className="left-panel" xs={12} md={8}>
-              <Form.Group controlId="formFirstName" className="mb-5">
-                <Form.Label>What is your first name?</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter your first name"
-                  onFocus={() => handleFocus('First Name')}
-                  onChange={(e) => handleChange('First Name', e.target.value)}
-                />
-              </Form.Group>
-            </Col>
-            <Col className="right-panel mt-1" xs={12} md={4}>
-              {selectedField === 'First Name' && (
-                <div className="form-container p-3 border scrollable">
-                  <h5>First Name</h5>
-                  <p>{explanations[selectedField]}</p>
-                </div>
-              )}
-            </Col>
-          </Row>
-
-          <Row className="mt-1">
-            <Col className="left-panel" xs={12} md={8}>
-              <Form.Group controlId="Last Name" className="mb-5">
-                <Form.Label>What is your last name?</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter your last name"
-                  onFocus={() => handleFocus('Last Name')}
-                  onChange={(e) => handleChange('Last Name', e.target.value)}
-                />
-              </Form.Group>
-            </Col>
-            <Col className="right-panel mt-1" xs={12} md={4}>
-              {selectedField === 'Last Name' && (
-                <div className="form-container p-3 border scrollable">
-                  <h5>Last Name</h5>
-                  <p>{explanations[selectedField]}</p>
-                </div>
-              )}
-            </Col>
-          </Row>
-
-          <Row className="mt-1">
-            <Col className="left-panel" xs={12} md={8}>
-              <Form.Group controlId="formPropertyAddress" className="mb-5">
-                <Form.Label>
-                  What is the address of the property you are making an offer
-                  on?
-                </Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter property address"
-                  onFocus={() => handleFocus('Seller Address')}
-                  onChange={(e) =>
-                    handleChange('Seller Address', e.target.value)
-                  }
-                />
-              </Form.Group>
-            </Col>
-            <Col className="right-panel mt-1" xs={12} md={4}>
-              {selectedField === 'Seller Address' && (
-                <div className="form-container p-3 border scrollable">
-                  <h5>Seller Address</h5>
-                  <p>{explanations[selectedField]}</p>
-                </div>
-              )}
-            </Col>
-          </Row>
-
-          <Row className="mt-1">
-            <Col className="left-panel" xs={12} md={8}>
-              <Form.Group controlId="formPropertyState" className="mb-5">
-                <Form.Label>What is the selling property's state?</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter property state"
-                  onFocus={() => handleFocus('Property State')}
-                  onChange={(e) =>
-                    handleChange('Property State', e.target.value)
-                  }
-                />
-              </Form.Group>
-            </Col>
-            <Col className="right-panel mt-1" xs={12} md={4}>
-              {selectedField === 'Property State' && (
-                <div className="form-container p-3 border scrollable">
-                  <h5>Property State</h5>
-                  <p>{explanations[selectedField]}</p>
-                </div>
-              )}
-            </Col>
-          </Row>
-
-          <Row className="mt-1">
-            <Col className="left-panel" xs={12} md={8}>
-              <Form.Group controlId="formPropertyZipCode" className="mb-5">
-                <Form.Label>
-                  What is the selling property's Zip Code?
-                </Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter Zip Code"
-                  onFocus={() => handleFocus('Property ZipCode')}
-                  onChange={(e) =>
-                    handleChange('Property ZipCode', e.target.value)
-                  }
-                />
-              </Form.Group>
-            </Col>
-            <Col className="right-panel mt-1" xs={12} md={4}>
-              {selectedField === 'Property ZipCode' && (
-                <div className="form-container p-3 border scrollable">
-                  <h5>Property ZipCode</h5>
-                  <p>{explanations[selectedField]}</p>
-                </div>
-              )}
-            </Col>
-          </Row>
-
-          <Row className="mt-1">
-            <Col className="left-panel" xs={12} md={8}>
-              <Form.Group controlId="formPurchasePrice" className="mb-5">
-                <Form.Label>
-                  What is the purchase price for this property?
-                </Form.Label>
-                <Form.Control
-                  type="number"
-                  placeholder="Enter purchase price"
-                  onFocus={() => handleFocus('Purchase Price')}
-                  onChange={(e) =>
-                    handleChange('Purchase Price', e.target.value)
-                  }
-                />
-              </Form.Group>
-            </Col>
-            <Col className="right-panel mt-1" xs={12} md={4}>
-              {selectedField === 'Purchase Price' && (
-                <div className="form-container p-3 border scrollable">
-                  <h5>Purchase Price</h5>
-                  <p>{explanations[selectedField]}</p>
-                </div>
-              )}
-            </Col>
-          </Row>
-
-          <Row className="mt-1">
-            <Col className="left-panel" xs={12} md={8}>
-              <Form.Group controlId="formFinancing" className="mb-5">
-                <Form.Label>How will this home be financed?</Form.Label>
-                <Form.Control
-                  as="select"
-                  onFocus={() => handleFocus('Financing')}
-                  onChange={(e) => handleChange('Financing', e.target.value)}
-                >
-                  <option>Select financing option</option>
-                  <option>Cash</option>
-                  <option>Mortgage</option>
-                  <option>Other</option>
-                </Form.Control>
-              </Form.Group>
-            </Col>
-            <Col className="right-panel mt-1" xs={12} md={4}>
-              {selectedField === 'Financing' && (
-                <div className="form-container p-3 border scrollable">
-                  <h5>Financing</h5>
-                  <p>{explanations[selectedField]}</p>
-                </div>
-              )}
-            </Col>
-          </Row>
-
-          <Row className="mt-1">
-            <Col className="left-panel" xs={12} md={8}>
-              <Form.Group controlId="formResidency" className="mb-5">
-                <Form.Label>What kind of residency is this for you?</Form.Label>
-                <Form.Control
-                  as="select"
-                  onFocus={() => handleFocus('Residency')}
-                  onChange={(e) => handleChange('Residency', e.target.value)}
-                >
-                  <option>Select residency option</option>
-                  <option>Primary</option>
-                  <option>Secondary</option>
-                  <option>Investment</option>
-                  <option>Vacation</option>
-                </Form.Control>
-              </Form.Group>
-            </Col>
-            <Col className="right-panel mt-1" xs={12} md={4}>
-              {selectedField === 'Residency' && (
-                <div className="form-container p-3 border scrollable">
-                  <h5>Residency</h5>
-                  <p>{explanations[selectedField]}</p>
-                </div>
-              )}
-            </Col>
-            <Row style={{ textAlign: 'center' }}>
-              <Button
-                style={{
-                  marginBottom: '5px',
-                  width: '100px',
-                  border: 'rgb(84, 92, 129)',
-                  backgroundColor: 'rgb(84, 92, 129)',
-                  color: 'rgb(255, 255, 255)',
-                }}
-                type="submit"
+        <Col>
+          <Form className="form-container" onSubmit={handleSubmit}>
+            <Form.Group controlId="formOfferDate" className="mb-5">
+              <Form.Label>When is your offer date?</Form.Label>
+              <Form.Control
+                type="date"
+                onFocus={() => handleFocus('Offer Date')}
+                onChange={(e) => handleChange('Offer Date', e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group controlId="formCloseDate" className="mb-5">
+              <Form.Label>
+                When do you want to close on the property?
+              </Form.Label>
+              <Form.Control
+                type="date"
+                onFocus={() => handleFocus('Close Date')}
+                onChange={(e) => handleChange('Close Date', e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group controlId="formFirstName" className="mb-5">
+              <Form.Label>What is your first name?</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter your first name"
+                onFocus={() => handleFocus('First Name')}
+                onChange={(e) => handleChange('First Name', e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group controlId="Last Name" className="mb-5">
+              <Form.Label>What is your last name?</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter your last name"
+                onFocus={() => handleFocus('Last Name')}
+                onChange={(e) => handleChange('Last Name', e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group controlId="formPropertyAddress" className="mb-5">
+              <Form.Label>
+                What is the address of the property you are making an offer on?
+              </Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter property address"
+                onFocus={() => handleFocus('Seller Address')}
+                onChange={(e) => handleChange('Seller Address', e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group controlId="formPropertyState" className="mb-5">
+              <Form.Label>What is the selling property's state?</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter property state"
+                onFocus={() => handleFocus('Property State')}
+                onChange={(e) => handleChange('Property State', e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group controlId="formPropertyZipCode" className="mb-5">
+              <Form.Label>What is the selling property's Zip Code?</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter Zip Code"
+                onFocus={() => handleFocus('Property ZipCode')}
+                onChange={(e) =>
+                  handleChange('Property ZipCode', e.target.value)
+                }
+              />
+            </Form.Group>
+            <Form.Group controlId="formPurchasePrice" className="mb-5">
+              <Form.Label>
+                What is the purchase price for this property?
+              </Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="Enter purchase price"
+                onFocus={() => handleFocus('Purchase Price')}
+                onChange={(e) => handleChange('Purchase Price', e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group controlId="formFinancing" className="mb-5">
+              <Form.Label>How will this home be financed?</Form.Label>
+              <Form.Control
+                as="select"
+                onFocus={() => handleFocus('Financing')}
+                onChange={(e) => handleChange('Financing', e.target.value)}
               >
-                Submit
-              </Button>
-              <Button
-                onClick={generatePDF}
-                style={{
-                  marginLeft: '15px',
-                  marginBottom: '5px',
-                  width: '100px',
-                  border: 'rgb(84, 92, 129)',
-                  backgroundColor: 'rgb(84, 92, 129)',
-                  color: 'rgb(255, 255, 255)',
-                }}
+                <option>Select financing option</option>
+                <option>Cash</option>
+                <option>Mortgage</option>
+                <option>Other</option>
+              </Form.Control>
+            </Form.Group>
+            <Form.Group controlId="formResidency" className="mb-5">
+              <Form.Label>What kind of residency is this for you?</Form.Label>
+              <Form.Control
+                as="select"
+                onFocus={() => handleFocus('Residency')}
+                onChange={(e) => handleChange('Residency', e.target.value)}
               >
-                Download
-              </Button>
+                <option>Select residency option</option>
+                <option>Primary</option>
+                <option>Secondary</option>
+                <option>Investment</option>
+                <option>Vacation</option>
+              </Form.Control>
+            </Form.Group>
+          </Form>
+        </Col>
+        <Col>
+          <Container className="sticky-top">
+            <div className="form-container mt-4 p-3 border scrollable">
+              <h5>{selectedField}</h5>
+              <p>{explanations[selectedField]}</p>
+            </div>
+            <Row>
+              <Stack
+                direction="horizontal"
+                gap={3}
+                className="justify-content-center pt-4"
+              >
+                <Button
+                  style={{
+                    marginBottom: '5px',
+                    width: '100px',
+                    border: '#1d77b3',
+                    backgroundColor: '#1d77b3',
+                    color: 'rgb(255, 255, 255)',
+                  }}
+                  type="submit"
+                >
+                  Submit
+                </Button>
+                <Button
+                  onClick={generatePDF}
+                  style={{
+                    marginLeft: '15px',
+                    marginBottom: '5px',
+                    width: '100px',
+                    border: '#1d77b3',
+                    backgroundColor: '#1d77b3',
+                    color: 'rgb(255, 255, 255)',
+                  }}
+                >
+                  Download
+                </Button>
+              </Stack>
             </Row>
-          </Row>
-        </Form>
+          </Container>
+        </Col>
       </Row>
     </Container>
   );
